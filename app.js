@@ -43,6 +43,7 @@
   const SITES = {
     cosmos: { url: 'https://www.cosmos.so/', collection: ['collection', 'collections'], sub: ['sub-collection', 'sub-collections'], item: ['item', 'items'], nest: 'Put sub-collections inside their parent channel' },
     pinterest: { url: 'https://www.pinterest.com/', collection: ['board', 'boards'], sub: ['section', 'sections'], item: ['pin', 'pins'], nest: 'Put each section inside its board’s channel' },
+    flickr: { url: 'https://www.flickr.com/', collection: ['gallery', 'galleries'], sub: ['sub-gallery', 'sub-galleries'], item: ['photo', 'photos'], nest: 'Put sub-galleries inside their parent channel' },
   };
   const site = () => SITES[state.source] || SITES.cosmos;
   /* “2 boards and 1 section”: sub-collections are named apart from the collections that hold them. */

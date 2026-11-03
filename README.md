@@ -46,6 +46,20 @@ You need an Are.na account, a computer, and your Cosmos or Pinterest account ope
    The page checks that it can write, then you pick the channel privacy and how to handle carousels.
 4. **Transfer.** Read the summary, **Simulate first** if you like, then **Transfer**. You can pause and resume.
 
+## Flickr (galleries, albums, group pools)
+
+Flickr has no in-page export script. [gallery-dl](https://github.com/mikf/gallery-dl) reads Flickr (it finds the API
+key itself) and `tools/flickr_to_export.py` turns its output into an export file for the page:
+
+```bash
+uv tool run gallery-dl -j -i urls.txt > flickr.json
+uv run tools/flickr_to_export.py flickr.json flickr-export.json
+```
+
+`urls.txt` takes gallery (`/photos/USER/galleries/ID`), album (`/photos/USER/albums/ID`), group (`/groups/NAME`) and
+favorites URLs. Add `flickr-export.json` on the page (**Add your export file**). Each gallery, album or pool becomes a
+channel; each photo an image block with its title, description, tags and a link to the photo page. Videos are skipped.
+
 ## What goes where
 
 | Source | Are.na |
@@ -111,12 +125,14 @@ No build step and no dependency: plain HTML, CSS and JavaScript.
 | `cosmos-export.js`, `pinterest-export.js` | The export scripts; the page builds the bookmark and console scripts from them |
 | `export-kit.js` | Shared pieces of the export scripts: panel and picker, sending to the tool, download |
 | `oauth.html`, `oauth.js` | Return page of **Connect with Are.na** |
+| `tools/flickr_to_export.py` | Flickr: gallery-dl output to an export file |
 | `demo/` | The demo: the real page with simulated sites and Are.na (`mock-sources.js`) |
 | `tests/` | Engine and export-script tests against the simulations |
 
 ```bash
 node tests/import.test.mjs
 node tests/export.test.mjs
+node tests/flickr.test.mjs
 ```
 
 **Connect with Are.na** needs an Are.na OAuth application: create one at

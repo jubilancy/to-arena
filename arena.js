@@ -1,7 +1,7 @@
 /*
  * To Are.na · import engine (no interface)
  *
- * - normalizeExport : checks an export file (Cosmos or Pinterest) and brings it to the current shape
+ * - normalizeExport : checks an export file (Cosmos, Pinterest or Flickr) and brings it to the current shape
  * - ArenaClient     : Are.na API v3 calls that respect its rate limits
  * - buildPlan       : turns an export into channels and blocks to create
  * - runImport       : runs the plan and resumes where it stopped (journal)
@@ -34,10 +34,16 @@
       library: '__library__',
       meta: { collection: 'pinterest_board_id', slug: 'pinterest_slug', item: 'pinterest_pin_id', index: 'pinterest_media_index', url: 'pinterest_url' },
     },
+    flickr: {
+      label: 'Flickr',
+      prefix: 'flickr:',
+      library: '__library__',
+      meta: { collection: 'flickr_collection_id', slug: 'flickr_slug', item: 'flickr_photo_id', index: 'flickr_media_index', url: 'flickr_url' },
+    },
   };
 
   /* Hosts the tool may download media from when it uploads files itself. */
-  const MEDIA_HOSTS = /^(cdn\.cosmos\.so|i\.pinimg\.com|v\d*\.pinimg\.com)$/;
+  const MEDIA_HOSTS = /^(cdn\.cosmos\.so|i\.pinimg\.com|v\d*\.pinimg\.com|live\.staticflickr\.com|farm\d+\.staticflickr\.com)$/;
 
   /* The source whose `field` key is present in an Are.na metadata object. */
   function metaSource(metadata, field) {
